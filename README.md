@@ -1,92 +1,140 @@
 # VectorShift Workflow Builder
 
-A node-based AI workflow builder built with React Flow and FastAPI.
-
-This project allows users to create and connect workflow nodes visually using a drag-and-drop interface. The application demonstrates reusable frontend architecture, dynamic node rendering, and graph-based workflow interactions.
+A React Flow based visual workflow/pipeline builder built for the VectorShift frontend assessment.
 
 ## Features
 
-- Node-based workflow canvas
-- Reusable `BaseNode` abstraction
-- Config-driven handle rendering
-- Dynamic React Flow node system
-- Input, Output, Text, and LLM nodes
-- Modular and scalable component architecture
-- FastAPI backend integration
-- Interactive graph-based UI
+### Core Workflow Features
+- Drag and drop workflow nodes
+- Dynamic node connections using React Flow
+- Interactive pipeline editor
+- Real-time graph updates
 
-## Tech Stack
+### Node System
+Implemented reusable `BaseNode` abstraction for shared node infrastructure.
 
-### Frontend
-- React
-- React Flow
-- JavaScript
-- CSS
+Supported nodes:
+- Input Node
+- Output Node
+- LLM Node
+- Text Node
+- Filter Node
+- Delay Node
+- API Node
+- Transform Node
+- Math Node
 
-### Backend
-- FastAPI
-- Python
+### Dynamic TextNode Variable Parsing
+The TextNode supports dynamic variable detection using template syntax.
 
-## Project Structure
+Example:
 
-```bash
-src/
-  nodes/
-    BaseNode.js
-    inputNode.js
-    outputNode.js
-    textNode.js
-    llmNode.js
+```txt
+Hello {{name}} from {{city}}
 ```
 
-## Architecture Highlights
+Automatically generates:
+- `name` input handle
+- `city` input handle
 
-### BaseNode Abstraction
-A reusable `BaseNode` component was created to reduce duplication across nodes.
+Features:
+- Real-time variable parsing
+- Dynamic handle generation
+- Duplicate variable removal
+- Empty variable filtering
 
-The `BaseNode` handles:
-- shared layout/styling
-- title rendering
-- dynamic handle rendering
+### Backend Integration
+Integrated FastAPI backend for pipeline analysis.
 
-Each specialized node manages:
-- local state
-- form inputs
-- node-specific logic
+Pipeline submission returns:
+- Number of nodes
+- Number of edges
+- DAG validation result
 
-### Config-Driven Handles
-Instead of hardcoding handles inside every node, handles are passed as configuration objects and rendered dynamically.
+### UI Improvements
+- Reusable BaseNode architecture
+- Cleaner node styling
+- Modal-based pipeline analysis result
+- Dynamic handles
+- Interactive graph visualization
 
-This improves:
-- scalability
-- readability
-- maintainability
+---
 
-## Running the Project
+# Tech Stack
 
-### Frontend
+Frontend:
+- React
+- React Flow
+- Zustand
+
+Backend:
+- FastAPI
+- Pydantic
+
+---
+
+# Running the Project
+
+## Frontend
 
 ```bash
+cd client
 npm install
 npm start
 ```
 
-### Backend
+## Backend
 
 ```bash
-pip install -r requirements.txt
+cd server
+pip install fastapi uvicorn
 uvicorn main:app --reload
 ```
 
-## Future Improvements
+---
 
-- Dynamic TextNode variable parsing
-- Auto-generated handles from variables
-- Improved node styling and UX
-- Node deletion support
-- Better graph validation
-- Persisted workflows
+# Architecture Notes
 
-## Author
+## BaseNode Abstraction
 
-Harshita Adya
+`BaseNode` handles:
+- shared layout
+- title rendering
+- handle rendering
+- reusable node infrastructure
+
+Each individual node handles:
+- local state
+- form logic
+- node-specific behavior
+
+This separation improved scalability and reduced duplicated code.
+
+---
+
+# Dynamic Handle Generation
+
+The TextNode parses variables using regex:
+
+```js
+const regex = /{{(.*?)}}/g;
+```
+
+Variables are derived dynamically from text state and converted into React Flow handles.
+
+---
+
+# Future Improvements
+
+- Real DAG cycle detection
+- Type-safe handle validation
+- Better node theming
+- Edge labels
+- Resizable nodes
+- Custom node icons
+
+---
+
+# Author
+
+Harshita
