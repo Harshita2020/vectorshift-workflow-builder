@@ -49,7 +49,7 @@ import React from "react";
 import BaseNode from "./BaseNode";
 
 import { useState } from "react";
-import { Handle, Position } from "reactflow";
+import { Position } from "reactflow";
 
 export const InputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(
@@ -85,11 +85,11 @@ export const InputNode = ({ id, data }) => {
           Type:
           <select value={inputType} onChange={handleTypeChange}>
             <option value="Text">Text</option>
-            <option value="File">File</option>
+            <option value="Boolean">Boolean</option>
+            <option value="Nummber">Number</option>
           </select>
         </label>
       </div>
     </BaseNode>
   );
 };
-
